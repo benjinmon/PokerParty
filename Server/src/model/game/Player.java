@@ -8,9 +8,22 @@ public class Player {
     private int stack;
     private int totalMoney;
     private Table table;
+    private Card[] hand;
 
 
+    public Card[] getHand() {
+        return hand;
+    }
 
+    public void setHand(Card[] hand) throws Exception {
+        if (hand != null) throw new Exception("This object is null");
+        this.hand = hand;
+    }
+
+    //TODO:WIP
+    public int setAmount(){
+        return -1;
+    }
 
 
 

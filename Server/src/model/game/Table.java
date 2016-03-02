@@ -6,6 +6,8 @@ import model.game.Player;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.function.Consumer;
 
 /**
  * Created by Matthias Walk on 10.02.2016.
@@ -13,13 +15,13 @@ import java.util.HashMap;
  * All the action takes place in this class.
  */
 public class Table {
-    ArrayList<Player> players;
+    LinkedList<Player> players;
     private int bigBlind;
     private int smallBlind;
     private Gamemode gamemode;
     private Deck deck;
     private long pot;
-    private HashMap<Player, Card[]> hands;
+    private int time;
 
 
 
@@ -29,40 +31,86 @@ public class Table {
         setBigBlind(getGamemode().getBigBlind(0));      //Determined by starting blinds in gamemode.
         setSmallBlind(getGamemode().getSmallBlind(0));  //
 
-        if (players.size()>getGamemode().getMaxPlayers() || players.size()<getGamemode().getMinPlayers()) {
-            throw new Exception("Invalid amount of players!");
+                                                        //Gives each player a stack of predetermined size and substracts it from his/her total money
+        for (Player a: players){
+            a.setStack(getGamemode().getBuyIn());
+            a.setTotalMoney(a.getStack()-getGamemode().getBuyIn());
         }
-        for (Player player : this.players){
-            player.setStack(getGamemode().getBuyIn());
-            this.players.add(player);
-        }
-
-
-
-
-        playRound();
     }
 
     /**
      * All the acion takes place in this method.
+     *
      */
     public void playRound() throws Exception {
         deck.prepare();
         deal();
+        bettingRound();     //Pre-Flop
+        flop();             //Flop
+        bettingRound();     //Post-Flop
+        oneCard();          //Turn
+        bettingRound();     //Turn
+        oneCard();          //River
+        bettingRound();     //River
+        showdown();         //Showdown
 
 
     }
 
     /**
-     * Deals two cards to all players.
+     * WIP
      */
-    private void deal(){
-        hands.clear();
+    private void showdown(){
+
+    }
+
+    /**
+     * WIP
+     */
+    private void oneCard(){
+
+    }
+
+    /**
+     * WIP
+     */
+    private void flop(){
+
+    }
+
+    /**
+     *WIP
+     */
+    private void bettingRound() throws Exception {
+        long pot=getGamemode().getBigBlind(time);
+        long amount=0;
+        for (Player player:players){
+            amount=player.setAmount();
+            if (pot==0){
+                //
+            }else if (amount>=(pot*2)) {
+
+            }
+        }
+    }
+
+
+
+
+
+
+    /**
+     * Deals two cards to all players.
+     * Finished
+     */
+    private void deal() throws Exception {
         Card[] hand=new Card[2];
         for (Player player : players){
+            hand[0]=deck.draw();
             hand[1]=deck.draw();
-            hand[2]=deck.draw();
-            hands.put(player, hand);
+            players.remove(player);
+            player.setHand(hand);
+            players.add(player);
         }
     }
 
