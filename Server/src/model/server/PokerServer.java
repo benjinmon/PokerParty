@@ -13,7 +13,7 @@ public class PokerServer {
     public static void main(String[] args) throws IOException {
 
         if (args.length != 1) {
-            System.err.println("Usage: java KKMultiServer <port number>");
+            System.err.println("Missing Port in Programm arguments.");
             System.exit(1);
         }
 

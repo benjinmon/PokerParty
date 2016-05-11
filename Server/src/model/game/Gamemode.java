@@ -8,7 +8,7 @@ public class Gamemode {
     private String name;
     private int buyIn;                  //Amount of initial money each player gets.
     private int nrOfReBuys;             //How often a player can re-buy, no negative v allowed, except for -1, which is infinite.
-    private int reBuy;
+    private int reBuy;                  //Amount
     private boolean open;
     private int[] bigBlind;
     private int[] smallBlind;

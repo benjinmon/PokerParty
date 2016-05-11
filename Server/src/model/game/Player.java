@@ -5,6 +5,7 @@ package model.game;
  * Class of the project: PokerParty
  */
 public class Player {
+    private String name;
     private int stack;
     private int totalMoney;
     private Table table;
@@ -20,13 +21,29 @@ public class Player {
         this.hand = hand;
     }
 
-    //TODO:WIP
-    public int setAmount(){
-        return -1;
+    /**
+     * TODO: Make this method gain information from the clinets.
+     * @param stake
+     * @return
+     * @throws Exception
+     */
+    public int setAmount(int stake) throws Exception {
+        int value=-1;
+
+
+        if (value<-1)throw new Exception("The player \""+this.getName()+"\" tried to set a negative amount.");
+        return value;
     }
 
 
+    public String getName() {
+        return name;
+    }
 
+    public void setName(String name) throws Exception {
+        if (name != null) throw new Exception("This object is null");
+        this.name = name;
+    }
 
     public int getStack() {
         return stack;
